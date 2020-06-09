@@ -1,5 +1,6 @@
 package com.bookstore.user.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -20,7 +21,7 @@ import lombok.Data;
 
 /*****************************************************************************************************
  * User Entity And Model Class which is mapped with table "user_details"
- *  
+ * 
  * @author Rupesh Patil
  * @version 1.0
  * @created 2020-04-11
@@ -30,18 +31,19 @@ import lombok.Data;
 @Data
 @Table(name = "user_details")
 @Entity
-public class User {
+public class User implements Serializable  {
 
+	private static final long serialVersionUID = 8869083444217056664L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int uId;
 	@Column(name = "FIRST_NAME")
 	@NotBlank(message = "First Name is mandatory")
 	private String firstName;
-	
+
 	@Column(name = "LAST_NAME")
 	private String lastName;
-	
+
 	@Column(name = "PASSWORD")
 	@NotBlank(message = "Password is mandatory")
 	private String password;
@@ -60,7 +62,7 @@ public class User {
 	@Column(name = "USER_NAME")
 	@NotBlank(message = "UserName is mandatory")
 	private String userName;
-	
+
 	@Column(name = "REGISTRATION_DATE")
 	@NotNull
 	private String creationTime;
@@ -71,8 +73,8 @@ public class User {
 	@Column(name = "Verified")
 	@NotNull
 	private boolean activate;
-	
-	@Column(name="IS_SELLER")
+
+	@Column(name = "IS_SELLER")
 	@NotNull
 	private boolean isSeller;
 
@@ -81,4 +83,19 @@ public class User {
 	@JoinColumn(name = "u_id")
 	private List<UserAddress> addresses;
 
+	public User(int uId, @NotBlank(message = "First Name is mandatory") String firstName, String lastName,
+			@NotBlank(message = "Password is mandatory") String password, String email,
+			@NotBlank(message = "Gender is mandatory") String gender,
+			@NotBlank(message = "contact is mandatory") String phNo,
+			@NotBlank(message = "UserName is mandatory") String userName) {
+		super();
+		this.uId = uId;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.password = password;
+		this.email = email;
+		this.gender = gender;
+		this.phNo = phNo;
+		this.userName = userName;
+	}
 }
